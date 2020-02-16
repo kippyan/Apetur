@@ -10,3 +10,10 @@ media
 secrets.py
 
 *.DS_Store
+
+### migrations ###
+migrations/
+
+### sass ###
+/.sass-cache
+.sass-cache

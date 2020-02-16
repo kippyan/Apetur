@@ -1,0 +1,174 @@
+@import 'common/_color.scss';
+@import 'common/grid';
+
+.full-availability,
+.partial-availability {
+    cursor: pointer;
+}
+
+.full-availability {
+    background-color: $green;
+}
+
+.partial-availability {
+    background-color: $orange;
+}
+
+.fully-booked {
+    background-color: $red;
+}
+
+.full-availability td:hover {
+    cursor: pointer;
+}
+
+/* Pop up modal (event scheduler) CSS*/
+/* Background */
+#schedule-event-form-container {
+    z-index: 200;
+
+    h1 {
+        color: $blue;
+    }
+
+    .modal-content {
+        max-width: 600px;
+        height: auto;
+        padding: 20px;
+        top: 70px;
+        background-color: $white;
+        border: none;
+        animation: none;
+
+        .close {
+            color: $red;
+
+            &:hover {
+                color: $dark_red;
+            }
+        }
+    }
+
+    button[type="submit"] {
+        padding: 10px;
+    }
+}
+
+/***********************************************
+ * Styling Overwrite
+ **********************************************/
+.fc-toolbar {
+    margin-bottom: 20px !important;
+    flex-flow: wrap;
+
+    // @media (max-width: $md) {
+    //     flex-direction: column;
+    // }
+
+    .fc-center {
+        margin-top: 10px;
+    }
+
+    .fc-left {
+        @media (max-width: $md) {
+            width: 100%;
+        }
+    }
+
+    .fc-right {
+        margin-top: 10px;
+    }
+
+    .fc-center,
+    .fc-right {
+        @media (max-width: $sm) {
+            font-size: 12px;
+
+            .fc-button .fc-icon {
+                font-size: 1em;
+            }
+        }
+    }
+}
+
+.fc-button-primary {
+    border: none !important;
+    background-color: $blue !important;
+    transition: 0.25s;
+
+    &:focus {
+        box-shadow: none !important;
+    }
+
+    &:hover:enabled {
+        background-color: $dark_blue !important;
+    }
+
+    &.fc-button-active {
+        background-color: $dark_blue !important;
+    }
+}
+
+.fc-view-container {
+    // background: linear-gradient($dark_blue, $blue);
+    // color: $white;
+    // border-radius: 5px;
+    // padding: 10px 20px;
+
+    // th,
+    // td {
+    //     border: none;
+    // }
+
+    .fc-head-container {
+        &.fc-widget-header {
+            // padding: 20px 0;
+
+            .fc-row {
+                border-bottom: 1px solid white;
+                // padding-bottom: 20px;
+            }
+        }
+    }
+
+    .fc-today {
+        border-style: solid !important;
+        color: $white !important;
+
+        .fc-day-number {
+            border-radius: 50%;
+            width: 23px;
+            height: 23px;
+            text-align: center;
+            background-color: rgba($black, 0.3);
+        }
+    }
+}
+
+.fc-widget-header {
+    @media(max-width: $sm) {
+        font-size: 0.9em;
+    }
+
+    span {
+        margin: 10px 0;
+        display: block;
+    }
+}
+
+.fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
+    margin: 5px;
+}
+
+.fc-scroller {
+    overflow: auto !important;
+    height: auto !important;
+}
+
+.fc-dayGrid-view .fc-body .fc-row {
+    min-height: 3em !important;
+}
+
+.fc-today {
+    color: $blue !important;
+}

@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock title %}
+{% block navbar_style %}navstyle-fixed navstyle-semi-transparent{% endblock navbar_style %}
+{% block site_css %}
+<link href="{{STATIC_FILE_URL}}fullcalendar/packages/core/main.css" rel="stylesheet" />
+<link href="{{STATIC_FILE_URL}}fullcalendar/packages/daygrid/main.css" rel="stylesheet" />
+<link href="{{STATIC_FILE_URL}}fullcalendar/packages/timegrid/main.css" rel="stylesheet" />
+<link href="{{STATIC_URL}}css/schedule.css" rel="stylesheet" />
+<link href="{{ STATIC_URL }}css/profile.css" media="screen" rel="stylesheet">
+{% endblock site_css %}
+
+{% block content%}
+<div class="profile-backsplash-container">
+    {% if gallery_images != NULL %}
+    <img class="profile-backsplash modal-popup-image" href="{{ gallery_images }}" src="{{ gallery_images }}" />
+    {% else %}
+    <i class="fas fa-camera"></i>
+    <i class="fas fa-plus"></i>
+    {% endif %}
+</div>
+
+<div class="user-display max-width">
+    <div class="profile-picture-outer-border">
+        <div class="profile-picture-inner-border">
+            <img class="profile-icture-circle" src="/static/files/user_files/0/temp-profile-pic-reduced.jpg">
+        </div>
+    </div>
+    <div class="row">
+        <div class="profile-detail col-12 col-md-8">
+            <h2 id="profileDetailUserName" class="font-weight-bold">{{ user_name }}</h2>
+            {% if account_type == "Photographer" %}
+            <p class="font-weight-bold">{{account_type}}</p>
+            {% endif %}
+            {% load formater %}
+            <div id="profileDetailFollowCont">
+                <span>{{ follower_count|number_format }} follower / {{ following_count|number_format }} following</span>
+                <div id="profileDetailFollowBtn" class="btn">follow</div>
+            </div>
+            {% if user_quote != '' %}
+            <div class="user_quote">{{ user_quote }}</div>
+            {% endif %}
+        </div>
+
+        <div class="profile-detail-btn col-12 col-md-4">
+            <div class="row">
+                <div class="col-12 col-sm-5 col-md-12">
+                    <a id="bookBtn" class="profile-btn btn">book</a>
+                </div>
+                <div class="col-12 col-sm-5 col-md-12">
+                    <a class="profile-btn btn">message</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} profile nav {% endcomment %}
+<div id="profileNavCont">
+    <div id="profileNav" class="text-center">
+        <div id="profileNavUnerline"></div>
+    </div>
+</div>
+
+<div id="profileSectionsCont">
+    {% comment %} schedule {% endcomment %}
+    {% if account_type == "Photographer" %}
+    <div id="profileSchedule" class="profile-sections" data-section-name="schedule">
+        <div class="max-width">
+            {% if user.client.photographer and user.client.photographer.id is p_id %}
+            <div id="calendar"></div>
+            {% elif user.client %}
+            <div id="client-calendar"></div>
+            <div id="schedule-event-form-container" class="modal">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    <form class="site-form" id="schedule-event-form" action="" method="post">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <h1 class="col-12 mb-4">schedule event</h1>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>my name is</label>
+                                    <input type="text" name="name" readonly="readonly" class="form-control" {{if
+                                user.is_authenticated}} value={{ user.get_short_name }}{{endif}} />
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label>event date</label>
+                                    <input type="date" name="event_date" id="event_date" class="form-control"
+                                        value="2019-11-25" readonly="readonly" />
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label>event type</label>
+                                    {{ form.event_type }}
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label>start time</label>
+                                    {{ form.start_time }}
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label>end time</label>
+                                    {{ form.end_time }}
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="p_id" value={{p_id}} />
+                            <input type="hidden" name="c_id" value={{user.client.id}} />
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary m-auto">schedule</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% comment %} Gallery {% endcomment %}
+    <div id="profileGallery" class="profile-sections default" data-section-name="gallery">
+        <div class="max-width">
+            <div class="row no-gutters">
+                {% comment %} gallery filter {% endcomment %}
+                <div id="galleryFilterCont" class="col-12">
+                    <div id="filterEventTypeCont" class="row">
+                        <div class="filter-event-type col-3">
+                            <div class="btn selected" data-event-type="all">
+                                all
+                            </div>
+                        </div>
+                        <div class="filter-event-type col-3">
+                            <div class="btn" data-event-type="birthday">
+                                <span class="filter-event-type-text">
+                                    birthday
+                                </span>
+                                <i class="fas fa-birthday-cake"></i>
+                            </div>
+                        </div>
+                        <div class="filter-event-type col-3">
+                            <div class="btn" data-event-type="wedding">
+                                <span class="filter-event-type-text">
+                                    wedding
+                                </span>
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="filter-event-type col-3">
+                            <div class="btn" data-event-type="graduation">
+                                <span class='filter-event-type-text'>
+                                    graduation
+                                </span>
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% comment %} gallery media {% endcomment %}
+                {% for media in gallery_media %}
+                <div class="profile-gallery-image col-12 col-sm-6 col-md-4 col-lg-3"
+                    data-event-type="{{ media.event_type }}">
+                    <img src="{{ media.url }}" class="modal-popup-image" />
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% comment %} Review {% endcomment %}
+    <div id="profileReview" class="profile-sections" data-section-name="review">
+        <div class="max-width">
+            <div class="row">
+                {% comment %} Client Reviews {% endcomment %}
+                <div id="userReviewsCont" class="col-12 col-sm-8 col-lg-9">
+                    <div class="row no-gutters">
+                        {% for review in reviews %}
+                        <div class="user-review col-12">
+                            <div class="row no-gutters">
+                                <div class="review-profile-pic col-3 col-md-2 col-lg-1">
+                                    <img src="{{ review.profile_pic }}" />
+                                </div>
+
+                                <div class="col-9 col-md-10 col-lg-11">
+                                    <div class="row no-gutters">
+                                        <div class="review-profile-user-detail col-12">
+                                            <div class="review-name">
+                                                {{ review.name }}
+                                            </div>
+                                        </div>
+
+                                        <div class="review-type-date col-12">
+                                            <b>{{ review.event_type }}</b> shot at {{ review.event_date|date:'F' }},
+                                            {{ review.event_date|date:'Y' }}
+                                        </div>
+                                        <div class="review-comment col-12">
+                                            {{ review.comment }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% comment %} photographer stats {% endcomment %}
+                <div id="PhotographerStatCont" class="col-12 col-sm-4 col-lg-3">
+                    <div class="row">
+                        <div class="stat-cont-title col-12 mb-3">skills</div>
+                        {% for k,v in photographer_stat.items %}
+                        <div class="col-6">
+                            <div class="stat_chart">
+                                <div class="progress progress-circle mx-auto" data-value='{{ v }}'>
+                                    <span class="progress-left">
+                                        <span class="progress-bar"></span>
+                                    </span>
+                                    <span class="progress-right">
+                                        <span class="progress-bar"></span>
+                                    </span>
+                                    <div
+                                        class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                        {{ v }}%
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="stat_name mb-3">{{ k }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if profile_about.strip %}
+    <div id="profileAbout" class="profile-sections" data-section-name="about">
+        <div class="max-width">
+            {{profile_about}}
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div id="imagePopupModal" class="modal">
+    <span class="close"><i class="fas fa-times"></i></span>
+    <img class="modal-content" id="modalImage">
+</div>
+{% endblock content%}
+
+{% block site_js %}
+{% comment %} Load JSON data from views.py {% endcomment %}
+<script>
+    var schedule_json_data = JSON.parse("{{schedule_json_data|escapejs}}");
+    var event_json_data = JSON.parse("{{event_json_data|escapejs}}");
+</script>
+<script src="{{STATIC_FILE_URL}}fullcalendar/packages/core/main.js"></script>
+<script src="{{STATIC_FILE_URL}}fullcalendar/packages/daygrid/main.js"></script>
+<script src="{{STATIC_FILE_URL}}fullcalendar/packages/timegrid/main.js"></script>
+<script src="{{STATIC_FILE_URL}}fullcalendar/packages/interaction/main.js"></script>
+{% if user.client.photographer and user.client.photographer.id is p_id %}
+<script src="{{STATIC_URL}}js/photographer_schedule_view.js"> </script>
+{% else %}
+<script src="{{STATIC_URL}}js/client_schedule_view.js"></script>
+{% endif %}
+<script src="{{ STATIC_URL }}js/profile.js"></script>
+{% endblock site_js %}

@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% block title %}Pricing{% endblock title %}
+{% block navbar_style %}{% endblock navbar_style %}
+{% block site_style %}sitestyle-no-space{% endblock site_style %}
+{% block site_css %}
+<link href="{{ STATIC_URL }}css/pricing.css" media="screen" rel="stylesheet">
+{% endblock site_css %}
+
+{% block content %}
+{% comment %} palns {% endcomment %}
+<div id="subPlans" class="sub-plans-cont row">
+    <div class="col-12 text-center mt-2 mb-2">
+        <h1>Subscription Plans</h1>
+        <a href="#featuresCont" class="feature-learn-more-btn scroll-to d-table btn mt-4">Learn More</a>
+    </div>
+    {% comment %} Free {% endcomment %}
+    <div class="sub-plan-cont col-12 col-sm-6 col-lg-3">
+        <div class="sub-plan">
+            <h3>Free Client Account</h3>
+            <div class="sub-plan-price">
+            </div>
+            <ul class="sub-plan-features">
+                <li>
+                    <a class="scroll-to">
+                        booking photo shot
+                    </a>
+                </li>
+                <li>
+                    <a class="scroll-to">
+                        contact photographer
+                    </a>
+                </li>
+                <li>
+                    <a href="#personalProfile" class="scroll-to">
+                        personal profile page
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="sub-plan-price"></div>
+            <a href="/signup" class="sub-plan-select-btn btn">select</a>
+        </div>
+    </div>
+
+    {% comment %} Basic {% endcomment %}
+    <div class="sub-plan-cont col-12 col-sm-6 col-lg-3">
+        <div class="sub-plan">
+            <h3>Basic</h3>
+            <div class="sub-plan-price">
+                $10
+                <div class="sub-plan-price-interval">per month</div>
+            </div>
+            <ul class="sub-plan-features">
+                <li>
+                    <a href="#personalProfile" class="scroll-to">
+                        personal profile
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#featureSearch" class="scroll-to">
+                        searchable by client
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </li>
+            </ul>
+            <a href="/signup?plan=1" class="sub-plan-select-btn btn">select</a>
+            <div class="sub-plan-banner sub-plan-banner-popular">popular</div>
+        </div>
+    </div>
+
+    {% comment %} Professional {% endcomment %}
+    <div class="sub-plan-cont col-12 col-sm-6 col-lg-3">
+        <div class="sub-plan">
+            <h3>Professional</h3>
+            <div class="sub-plan-price">
+                $30
+                <div class="sub-plan-price-interval">per month</div>
+            </div>
+            <ul class="sub-plan-features">
+                <li>
+                    <a href="#personalProfile" class="scroll-to">
+                        personal profile
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#featureSearch" class="scroll-to">
+                        searchable by client
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#featureClientProofing" class="scroll-to">
+                        client proofing
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </li>
+            </ul>
+            <a href="/signup?plan=2" class="sub-plan-select-btn btn">select</a>
+        </div>
+    </div>
+
+    {% comment %} Enterprise {% endcomment %}
+    <div class="sub-plan-cont col-12 col-sm-6 col-lg-3">
+        <div class="sub-plan">
+            <h3>Enterprise</h3>
+            <div class="sub-plan-price">
+                $125
+                <div class="sub-plan-price-interval">per month</div>
+            </div>
+            <ul class="sub-plan-features">
+                <li>
+                    <a href="#personalProfile" class="scroll-to">
+                        personal profile
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#featureSearch" class="scroll-to">
+                        searchable by client
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#featureClientProofing" class="scroll-to">
+                        client proofing
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#featureCustomBranding" class="scroll-to">
+                        custom branding
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </li>
+            </ul>
+            <a href="/signup?plan=3" class="sub-plan-select-btn btn">select</a>
+            <div class="sub-plan-banner sub-plan-banner-new">new</div>
+        </div>
+    </div>
+</div>
+
+{% comment %} features {% endcomment %}
+<div id="featuresCont" class="row mt-5">
+    <div class="col-12 text-center mt-5 mb-4">
+        <h1>Features</h1>
+    </div>
+    <div class="col-12">
+        {% comment %} commercial site {% endcomment %}
+        <div id="personalProfile" class="row">
+            <div class="col-12 text-center">
+                <h2 class="mt-2 mb-4">PersonalProfile</h2>
+            </div>
+            <div class="feature-detail col-12 col-md-4 d-flex">
+                <div class="m-auto p-2">
+                    Your very own personalized profile! Complete with contact info, booking calendar, about me, previous
+                    work, portfolio, social media accounts
+                    <a href="#subPlans" class="plan-get-started-btn scroll-to d-table btn">get started</a>
+                </div>
+            </div>
+            <div class="feature-visual col-12 col-md-8">
+                <img src="{{ SITE_FILE_URL }}home/user_profile.png" class="img-cover" />
+            </div>
+        </div>
+
+        {% comment %} search {% endcomment %}
+        <div id="featureSearch" class="row">
+            <div class="col-12 text-center">
+                <h2 class="mt-2 mb-4">Search</h2>
+            </div>
+            <div class="feature-visual col-12 col-md-8">
+                <img src="{{ SITE_FILE_URL }}pricing/search.png" class="img-cover" />
+            </div>
+            <div class="feature-detail col-12 col-md-4 d-flex">
+                <div class="m-auto p-2">
+                    Attract new clients by being added to our geolocated search engine for photographers.
+                    <a href="#subPlans" class="plan-get-started-btn scroll-to d-table btn">get started</a>
+                </div>
+            </div>
+        </div>
+
+        {% comment %} client proofing {% endcomment %}
+        <div id="featureClientProofing" class="row">
+            <div class="col-12 text-center">
+                <h2 class="mt-2 mb-4">Client Proofing</h2>
+            </div>
+            <div class="feature-detail col-12 col-md-4 d-flex">
+                <div class="m-auto p-2">
+                    Upload photo for client approval through our password protected file uploader. Make any revision
+                    requested by client. Clients can download photo digitally or order prints.
+                    <a href="#subPlans" class="plan-get-started-btn scroll-to d-table btn">get started</a>
+                </div>
+            </div>
+            <div class="feature-visual col-12 col-md-8">
+                <img src="{{ SITE_FILE_URL }}pricing/client_proofing.png" class="img-cover" />
+            </div>
+        </div>
+
+        {% comment %} branding {% endcomment %}
+        <div id="featureCustomBranding" class="row">
+            <div class="col-12 text-center">
+                <h2 class="mt-2 mb-4">Custom Branding</h2>
+            </div>
+            <div class="feature-visual col-12 col-md-8">
+                <img src="{{ SITE_FILE_URL }}pricing/custom_branding.png" class="img-cover" />
+            </div>
+            <div class="feature-detail col-12 col-md-4 d-flex">
+                <div class="m-auto p-2">
+                    Stand out among other photographers and take your business to the next level with your own custom
+                    personal brand.
+                    <a href="#subPlans" class="plan-get-started-btn scroll-to d-table btn">get started</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block site_js %}
+{% endblock site_js %}

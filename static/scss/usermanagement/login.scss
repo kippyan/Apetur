@@ -1,0 +1,49 @@
+@import '../common/color';
+@import '../common/url';
+@import '../common/grid';
+
+#siteBackground {
+    background-image: url($site_file+'usermanagement/login/login-background-reduced.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#siteWrapper {
+    @media (max-width: $sm) {
+        padding: 0;
+    }
+}
+
+.login-form-wrapper {
+    flex: 1;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+    justify-content: center;
+    max-width: 400px;
+
+    @media (max-width: $sm) {
+        padding: 0;
+        max-width: none;
+    }
+
+    form {
+        background-color: rgba($white, 0.8);
+        padding: 50px 20px;
+        box-shadow: 0 5px 10px rgba($gray, 0.7);
+        border-radius: 5px;
+
+        @media (max-width: $sm) {
+            border-radius: 0;
+        }
+    }
+
+    .btn {
+        font-size: 15px;
+        padding: 8px;
+    }
+}

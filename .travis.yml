@@ -1,0 +1,19 @@
+sudo: enabled
+
+language: python
+
+python:
+  - "3.6.8"
+
+env:
+  -DJANGO=2.2.5 DB=mysql
+
+install:
+  - pip install requests
+  - pip install -r requirements.txt
+
+before_script:
+  - python manage.py runserver &
+
+script:
+  - python manage.py runserver
